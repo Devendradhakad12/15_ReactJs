@@ -1,0 +1,27 @@
+
+  function debounce(func: any, delay: number) {
+    let timeoutId: NodeJS.Timeout;
+    return function (...args: any) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  }
+
+  const debouncedSetSchoolQuery = useCallback(
+    debounce((e: string) => {
+      setSchool(e);
+    }, 1000),
+    []
+  );
+
+  let handleChange = (e:any) => {
+    setSc(e.target.value)
+  };
+
+
+
+  useEffect(() => {
+    debouncedSetSchoolQuery(sc);
+  }, [sc, debouncedSetSchoolQuery]);
